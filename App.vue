@@ -14,4 +14,9 @@
 
 <style>
 	/*每个页面公共css */
+	.btn {
+		width: 400upx;
+		background-color: #2979ff;
+		color: white;
+	}
 </style>
