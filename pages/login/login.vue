@@ -106,7 +106,7 @@
 						// user存入全局
 						uni.setStorageSync("user", user)
 						// 跳转
-						uni.navigateTo({
+						uni.switchTab({
 							url: "/pages/index/index"
 						})
 					}
