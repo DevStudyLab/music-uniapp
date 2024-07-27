@@ -7,9 +7,13 @@
 		<uni-easyinput class="input" prefixIcon="locked" trim="all" v-model="password" placeholder="请输入密码"
 			type="password" />
 
-		<button class="btn" @click="loginHandler">登录</button>
 
-		<view class="bottom">
+		<p @click="toRegister" v-if="status===0">没有账号？去注册</p>
+		<p @click="toLogin" v-else>已有账号？去登录</p>
+
+		<button class="btn" @click="loginHandler" v-if="status===0">登录</button>
+		<button class="btn" @click="registerHandler" v-else>注册</button>
+		<view class="bottom" v-if="status===0">
 			<p>其他登录方式</p>
 			<view class="line">
 				<view class="iconfont icon-QQ" @click="otherLogin('QQ')" />
@@ -27,7 +31,8 @@
 		data() {
 			return {
 				username: 'weng',
-				password: '123456'
+				password: '123456',
+				status: 0
 			};
 		},
 		methods: {
@@ -48,6 +53,38 @@
 						} else {
 							this.errorToast()
 						}
+					}
+				})
+			},
+			registerHandler() {
+				request({
+					url: 'music/user',
+					method: 'GET',
+					data: {
+						username: this.username
+					}
+				}).then(res => {
+					if (res.data.list.length === 0) {
+						request({
+							url: 'music/user',
+							method: 'POST',
+							data: {
+								username: this.username,
+								password: this.password
+							}
+						}).then(res => {
+							uni.showToast({
+								title: '注册成功',
+								success: () => {
+									this.status = 0
+								}
+							})
+						})
+					} else {
+						uni.showToast({
+							title: '账号名已被占用',
+							icon: 'error'
+						})
 					}
 				})
 			},
@@ -80,6 +117,12 @@
 					title: "暂不支持" + type + "登录",
 					icon: 'error'
 				})
+			},
+			toRegister() {
+				this.status = 1
+			},
+			toLogin() {
+				this.status = 0
 			}
 		}
 	}
@@ -97,16 +140,20 @@
 		margin: 30upx 5%;
 	}
 
+	p {
+		font-size: 24upx;
+		text-align: center;
+		color: #aaa;
+	}
+
+	.btn {
+		margin-top: 30upx;
+	}
+
 	.bottom {
 		width: 100%;
-		font-size: 24upx;
 		position: absolute;
 		bottom: 100upx;
-		color: #aaa;
-
-		p {
-			text-align: center;
-		}
 
 		.line {
 			width: 100%;
