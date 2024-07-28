@@ -23,7 +23,7 @@
 			</view>
 			<view class="block">
 				<view class="iconfont icon-qiehuanyonghu" />
-				<p @click="toNext('changeUser')">切换账号</p>
+				<p @click="toLogin">切换账号</p>
 			</view>
 		</view>
 
@@ -80,6 +80,11 @@
 			toNext(path) {
 				uni.navigateTo({
 					url: '/pages/mine/' + path
+				})
+			},
+			toLogin() {
+				uni.reLaunch({
+					url: '/pages/login/login'
 				})
 			},
 			operation() {

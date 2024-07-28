@@ -20,8 +20,6 @@
 		}, {
 			"path": "pages/mine/replyMe"
 		}, {
-			"path": "pages/mine/changeUser"
-		}, {
 			"path": "pages/mine/set"
 		}
 	],
