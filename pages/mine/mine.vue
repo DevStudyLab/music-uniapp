@@ -1,6 +1,7 @@
 <template>
 	<view>
-		<uni-nav-bar rightText="设置" title="我的" @clickRight="toNext('set')" background-color="#2979ff" color="#fff" />
+		<uni-nav-bar rightText="设置" title="我的" @clickRight="toNext('set')" background-color="#2979ff" color="#fff"
+			fixed />
 
 		<view class="top">
 			<image src="../../static/mine-bg.jpg" class="bg"></image>
@@ -9,21 +10,21 @@
 		<p class="name">{{username}}</p>
 
 		<view class="line">
-			<view class="block">
+			<view class="block" @click="toNext('changeInfo')">
 				<view class="iconfont icon-xiugaixinxi" />
-				<p @click="toNext('changeInfo')">修改信息</p>
+				<p>修改信息</p>
 			</view>
-			<view class="block">
+			<view class="block" @click="toNext('myComment')">
 				<view class="iconfont icon-wodepinglun" />
-				<p @click="toNext('myComment')">我的评论</p>
+				<p>我的评论</p>
 			</view>
-			<view class="block">
-				<view class="iconfont icon-shoudaohuifu" />
-				<p @click="toNext('replyMe')">收到回复</p>
+			<view class="block" @click="toNext('replyMe')">
+				<view class=" iconfont icon-shoudaohuifu" />
+				<p>收到回复</p>
 			</view>
-			<view class="block">
+			<view class="block" @click="toLogin">
 				<view class="iconfont icon-qiehuanyonghu" />
-				<p @click="toLogin">切换账号</p>
+				<p>切换账号</p>
 			</view>
 		</view>
 
