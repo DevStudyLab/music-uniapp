@@ -7,7 +7,7 @@
 			<image src="../../static/mine-bg.jpg" class="bg"></image>
 			<image class="img" :src="avatar"></image>
 		</view>
-		<p class="name">{{username}}</p>
+		<p class="username">{{username}}</p>
 
 		<view class="line">
 			<view class="block" @click="toNext('changeInfo')">
@@ -34,7 +34,7 @@
 				<image :src="item.image" class="img"></image>
 				<view>
 					<view class="iconfont icon-31zhuanfa" @click="operation"></view>
-					<p>{{item.name}}</p>
+					<p class="name"><strong>{{item.name}}</strong></p>
 					<p>{{item.description}}</p>
 					<p class="time">{{item.createTime}}</p>
 				</view>
@@ -116,7 +116,7 @@
 		}
 	}
 
-	.name {
+	.username {
 		margin-top: 10upx;
 		text-align: center;
 		mix-blend-mode: difference;
@@ -168,6 +168,10 @@
 				float: right;
 				font-size: 24upx;
 				color: #ccc;
+			}
+
+			.name {
+				font-size: 40upx;
 			}
 		}
 	}
