@@ -2,11 +2,13 @@
 	<view>
 		<uni-nav-bar title="首页" background-color="#2979ff" color="#fff" fixed />
 		<uni-search-bar :focus="true" @confirm="search" />
+
 		<swiper class="block" circular indicator-dots autoplay :interval="3000" :duration="1000">
 			<swiper-item v-for="(item,index) in 4" :key="index">
 				<image class="img" :src="'../../static/banner ('+(index+1)+').jpg'"></image>
 			</swiper-item>
 		</swiper>
+
 		<uni-section title="热门歌曲" type="line"></uni-section>
 		<view class="hotSongList">
 			<view class="item" v-for="(item,index) in songList.slice(0,3)" :key="index">
@@ -18,6 +20,7 @@
 				</view>
 			</view>
 		</view>
+
 		<uni-section title="歌单列表" type="line"></uni-section>
 		<view class="menuList">
 			<view v-for="(item,index) in menuList" :key="index">
@@ -32,6 +35,10 @@
 				</view>
 			</view>
 		</view>
+
+		<bottomPlayer name='歌名' singer='歌手' content='/music/file/download/music.mp3/DOCUMENT'></bottomPlayer>
+
+
 		<uni-popup class="popup" ref="share" type="share" safeArea backgroundColor="#fff">
 			<uni-popup-share></uni-popup-share>
 		</uni-popup>
@@ -47,7 +54,7 @@
 		data() {
 			return {
 				songList: [],
-				menuList: []
+				menuList: [],
 			}
 		},
 		onLoad() {
