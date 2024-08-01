@@ -29,7 +29,7 @@
 		</view>
 
 		<uni-section title="你创建的歌单" type="line"></uni-section>
-		<view v-for="(item,index) in menuList" :key="index">
+		<view v-for="(item,index) in menuList" :key="index" @click="toMenu(item.id)">
 			<view class="songLine">
 				<image :src="item.image" class="img"></image>
 				<view>
@@ -86,6 +86,11 @@
 			toLogin() {
 				uni.reLaunch({
 					url: '/pages/login/login'
+				})
+			},
+			toMenu(id) {
+				uni.navigateTo({
+					url: `/pages/menu/menu?menuId=${id}`
 				})
 			},
 			operation() {

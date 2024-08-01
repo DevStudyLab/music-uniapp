@@ -23,7 +23,7 @@
 
 		<uni-section title="歌单列表" type="line"></uni-section>
 		<view class="menuList">
-			<view v-for="(item,index) in menuList" :key="index">
+			<view v-for="(item,index) in menuList" :key="index" @click="toMenu(item.id)">
 				<view class="songLine">
 					<image :src="item.image" class="img"></image>
 					<view>
@@ -36,7 +36,8 @@
 			</view>
 		</view>
 
-		<bottomPlayer :name='song.name' :singer='song.singer' :content='song.content'></bottomPlayer>
+		<bottomPlayer class="bottom" :name='song.name' :singer='song.singer' :content='song.content'>
+		</bottomPlayer>
 
 		<uni-popup class="popup" ref="share" type="share" safeArea backgroundColor="#fff">
 			<uni-popup-share></uni-popup-share>
@@ -62,6 +63,9 @@
 			}
 		},
 		onLoad() {
+			uni.$on('update', res => {
+				this.song = uni.getStorageSync('song')
+			})
 			this.getSongs()
 			this.getMenuList()
 		},
@@ -92,6 +96,12 @@
 			},
 			setMusic(index) {
 				this.song = this.songList[index]
+				uni.setStorageSync('song', this.song)
+			},
+			toMenu(id) {
+				uni.navigateTo({
+					url: `/pages/menu/menu?menuId=${id}`
+				})
 			},
 			operation() {
 				this.$refs.share.open()
@@ -135,8 +145,6 @@
 					margin-bottom: 20upx;
 				}
 			}
-
-
 		}
 	}
 
@@ -173,6 +181,13 @@
 				}
 			}
 		}
+	}
+
+	.bottom {
+		z-index: 99999;
+		width: 100%;
+		position: fixed;
+		bottom: 100upx;
 	}
 
 	.popup {

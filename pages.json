@@ -21,6 +21,8 @@
 			"path": "pages/mine/replyMe"
 		}, {
 			"path": "pages/mine/set"
+		}, {
+			"path": "pages/menu/menu"
 		}
 	],
 	"globalStyle": {

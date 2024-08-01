@@ -87,8 +87,6 @@
 		border-top: 1px solid #ccc;
 		width: 100%;
 		height: 100upx;
-		position: fixed;
-		bottom: 100upx;
 		display: flex;
 		background-color: #fff;
 		opacity: 0.9;
@@ -119,7 +117,6 @@
 	}
 
 	.player {
-		z-index: 99999;
 
 		.popup-content {
 			height: 100vh;
