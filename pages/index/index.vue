@@ -11,7 +11,7 @@
 
 		<uni-section title="热门歌曲" type="line"></uni-section>
 		<view class="hotSongList">
-			<view class="item" v-for="(item,index) in songList.slice(0,3)" :key="index">
+			<view class="item" v-for="(item,index) in songList.slice(0,3)" :key="index" @click="setMusic(index)">
 				<image class="img" src="../../static/player.jpeg"></image>
 				<view class="rightBox">
 					<uni-tag class="tag" :text="item.type" type="primary" size="small" />
@@ -36,8 +36,7 @@
 			</view>
 		</view>
 
-		<bottomPlayer name='歌名' singer='歌手' content='/music/file/download/music.mp3/DOCUMENT'></bottomPlayer>
-
+		<bottomPlayer :name='song.name' :singer='song.singer' :content='song.content'></bottomPlayer>
 
 		<uni-popup class="popup" ref="share" type="share" safeArea backgroundColor="#fff">
 			<uni-popup-share></uni-popup-share>
@@ -55,6 +54,11 @@
 			return {
 				songList: [],
 				menuList: [],
+				song: {
+					name: null,
+					singer: null,
+					content: null
+				}
 			}
 		},
 		onLoad() {
@@ -85,6 +89,9 @@
 					this.menuList = res.data.list
 					this.images = res.data.list.map(i => i.image = addBase(i.image))
 				})
+			},
+			setMusic(index) {
+				this.song = this.songList[index]
 			},
 			operation() {
 				this.$refs.share.open()

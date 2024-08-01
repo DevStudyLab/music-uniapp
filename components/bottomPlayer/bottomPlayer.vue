@@ -4,8 +4,10 @@
 		<view class="musicPlayer" @click="playerHandler">
 			<image class="playerImg" src="../../static/player.jpeg"></image>
 			<view class="rightText">
-				<view src='startMusic' class="iconfont icon-kaishibofang"></view>
-				<p>{{name}}-{{singer}}</p>
+				<view v-if="!isStart" class="iconfont icon-kaishibofang" @click.stop="musicPlayer"></view>
+				<view v-else class="iconfont icon-zantingbofang" @click.stop="musicPlayer"></view>
+				<p v-if="name">{{name}}-{{singer}}</p>
+				<p v-else>开始你的音乐之旅</p>
 			</view>
 		</view>
 
@@ -41,6 +43,9 @@
 </template>
 
 <script>
+	import {
+		addBase
+	} from '../../utils/myFunction';
 	const innerAudioContext = uni.createInnerAudioContext();
 	export default {
 		name: "bottomPlayer",
@@ -50,8 +55,12 @@
 				isStart: false
 			};
 		},
-		mounted() {
-			innerAudioContext.src = 'http://localhost:8080' + this.content
+		watch: {
+			name(newVal, oldVal) {
+				innerAudioContext.src = addBase(this.content)
+				innerAudioContext.play()
+				this.isStart = true
+			}
 		},
 		methods: {
 			playerHandler() {
@@ -68,7 +77,6 @@
 					innerAudioContext.play()
 					this.isStart = true
 				}
-
 			}
 		}
 	}
@@ -80,7 +88,7 @@
 		width: 100%;
 		height: 100upx;
 		position: fixed;
-		bottom: 104upx;
+		bottom: 100upx;
 		display: flex;
 		background-color: #fff;
 		opacity: 0.9;
@@ -102,9 +110,10 @@
 				font-size: 30upx;
 			}
 
-			.icon-kaishibofang {
+			.icon-kaishibofang,
+			.icon-zantingbofang {
 				float: right;
-				margin-right: 10upx;
+				margin-right: 20upx;
 			}
 		}
 	}
