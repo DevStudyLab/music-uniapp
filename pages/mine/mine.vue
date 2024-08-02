@@ -35,7 +35,7 @@
 				<view>
 					<view class="iconfont icon-31zhuanfa" @click="operation"></view>
 					<p class="name"><strong>{{item.name}}</strong></p>
-					<p>{{item.description}}</p>
+					<p class="description">{{item.description}}</p>
 					<p class="time">{{item.createTime}}</p>
 				</view>
 			</view>
@@ -177,6 +177,15 @@
 
 			.name {
 				font-size: 40upx;
+			}
+
+			.description {
+				// 字数超过一行隐藏
+				display: -webkit-box;
+				-webkit-box-orient: vertical;
+				-webkit-line-clamp: 1;
+				overflow: hidden;
+				text-overflow: ellipsis;
 			}
 		}
 	}

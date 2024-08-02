@@ -1,40 +1,57 @@
 <template>
 	<view>
 		<uni-nav-bar title="首页" background-color="#2979ff" color="#fff" fixed />
-		<uni-search-bar :focus="true" @confirm="search" />
+		<uni-search-bar v-model='searchVal' :focus="false" placeholder="输入想听的歌名" />
 
-		<swiper class="block" circular indicator-dots autoplay :interval="3000" :duration="1000">
-			<swiper-item v-for="(item,index) in 4" :key="index">
-				<image class="img" :src="'../../static/banner ('+(index+1)+').jpg'"></image>
-			</swiper-item>
-		</swiper>
+		<view v-if="!searchVal">
+			<swiper class="block" circular indicator-dots autoplay :interval="3000" :duration="1000">
+				<swiper-item v-for="(item,index) in 4" :key="index">
+					<image class="img" :src="'../../static/banner ('+(index+1)+').jpg'"></image>
+				</swiper-item>
+			</swiper>
 
-		<uni-section title="热门歌曲" type="line"></uni-section>
-		<view class="hotSongList">
-			<view class="item" v-for="(item,index) in songList.slice(0,3)" :key="index" @click="setMusic(index)">
-				<image class="img" src="../../static/player.jpeg"></image>
-				<view class="rightBox">
-					<uni-tag class="tag" :text="item.type" type="primary" size="small" />
-					<p class="name"><strong>{{item.name}}</strong></p>
-					<p>歌手：{{item.singer}}</p>
+			<uni-section title="热门歌曲" type="line"></uni-section>
+			<view class="hotSongList">
+				<view class="item" v-for="(item,index) in hotSongList.slice(0,3)" :key="index" @click="setMusic(index)">
+					<image class="img" src="../../static/player.jpeg"></image>
+					<view class="rightBox">
+						<uni-tag class="tag" :text="item.type" type="primary" size="small" />
+						<p class="name"><strong>{{item.name}}</strong></p>
+						<p>歌手：{{item.singer}}</p>
+					</view>
 				</view>
 			</view>
-		</view>
 
-		<uni-section title="歌单列表" type="line"></uni-section>
-		<view class="menuList">
-			<view v-for="(item,index) in menuList" :key="index" @click="toMenu(item.id)">
-				<view class="songLine">
-					<image :src="item.image" class="img"></image>
-					<view>
-						<view class="iconfont icon-31zhuanfa" @click="operation"></view>
+			<uni-section title="歌单列表" type="line"></uni-section>
+			<view class="menuList">
+				<view v-for="(item,index) in menuList" :key="index" @click="toMenu(item.id)">
+					<view class="songLine">
+						<image :src="item.image" class="img"></image>
+						<view>
+							<view class="iconfont icon-31zhuanfa" @click="operation"></view>
+							<p class="name"><strong>{{item.name}}</strong></p>
+							<p class="description">{{item.description}}</p>
+							<p class="time">{{item.createTime}}</p>
+						</view>
+					</view>
+				</view>
+			</view>
+
+			<view style="height: 100upx;"></view>
+		</view>
+		<view v-else>
+			<view class="hotSongList">
+				<view class="item" v-for="(item,index) in songList" :key="index" @click="setMusic(index)">
+					<image class="img" src="../../static/player.jpeg"></image>
+					<view class="rightBox">
+						<uni-tag class="tag" :text="item.type" type="primary" size="small" />
 						<p class="name"><strong>{{item.name}}</strong></p>
-						<p>{{item.description}}</p>
-						<p class="time">{{item.createTime}}</p>
+						<p>歌手：{{item.singer}}</p>
 					</view>
 				</view>
 			</view>
 		</view>
+
 
 		<bottomPlayer class="bottom" :name='song.name' :singer='song.singer' :content='song.content'>
 		</bottomPlayer>
@@ -53,6 +70,8 @@
 	export default {
 		data() {
 			return {
+				searchVal: null,
+				hotSongList: [],
 				songList: [],
 				menuList: [],
 				song: {
@@ -60,6 +79,19 @@
 					singer: null,
 					content: null
 				}
+			}
+		},
+		watch: {
+			searchVal() {
+				request({
+					url: 'music/song',
+					method: 'GET',
+					data: {
+						name: this.searchVal
+					}
+				}).then(res => {
+					this.songList = res.data.list
+				})
 			}
 		},
 		onLoad() {
@@ -70,10 +102,6 @@
 			this.getMenuList()
 		},
 		methods: {
-			search(res) {
-				console.log(res.value);
-				// 跳转音乐列表
-			},
 			getSongs() {
 				request({
 					url: 'music/song',
@@ -82,7 +110,7 @@
 						hot: '是'
 					}
 				}).then(res => {
-					this.songList = res.data.list
+					this.hotSongList = res.data.list
 				})
 			},
 			getMenuList() {
@@ -95,7 +123,7 @@
 				})
 			},
 			setMusic(index) {
-				this.song = this.songList[index]
+				this.song = this.hotSongList[index]
 				uni.setStorageSync('song', this.song)
 			},
 			toMenu(id) {
@@ -178,6 +206,15 @@
 					float: right;
 					font-size: 24upx;
 					color: #ccc;
+				}
+
+				.description {
+					// 字数超过一行隐藏
+					display: -webkit-box;
+					-webkit-box-orient: vertical;
+					-webkit-line-clamp: 1;
+					overflow: hidden;
+					text-overflow: ellipsis;
 				}
 			}
 		}
