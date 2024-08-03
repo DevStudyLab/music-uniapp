@@ -1,6 +1,8 @@
 <template>
 	<view v-if="menuInfo">
-		<uni-nav-bar title="首页" left-icon="left" leftText="返回" @clickLeft="toBack" background-color="#2979ff"
+		<uni-nav-bar v-if="username===menuInfo.user.username" title="首页" left-icon="left" leftText="返回"
+			@clickLeft="toBack" rightText="设置" @clickRight="setHandler" background-color="#2979ff" color="#fff" fixed />
+		<uni-nav-bar v-else title="首页" left-icon="left" leftText="返回" @clickLeft="toBack" background-color="#2979ff"
 			color="#fff" fixed />
 
 		<view class="top">
@@ -20,7 +22,11 @@
 				<view class="item" v-for="(item,index) in songList" :key="index" @click="setMusic(index)">
 					<image class="img" src="../../static/player.jpeg"></image>
 					<view class="rightBox">
-						<uni-tag class="tag" :text="item.type" type="primary" size="small" />
+						<view class="tag">
+							<uni-tag :text="item.type" type="primary" size="small" />
+							<view v-if="username===menuInfo.user.username" class="iconfont icon-gengduo"
+								@click.stop="deleteHandler(item)"></view>
+						</view>
 						<p class="name"><strong>{{item.name}}</strong></p>
 						<p>歌手：{{item.singer}}</p>
 					</view>
@@ -28,7 +34,34 @@
 			</view>
 		</view>
 
-		<!-- TODO 如果是我的歌单，就可以编辑 -->
+		<uni-popup ref="popup" background-color="#fff">
+			<uni-popup-dialog type="info" cancelText="取消" confirmText="确认" title="提示"
+				:content="'确定从'+menuInfo.name+'中删除'+deleteItem.name" @confirm="dialogConfirm"></uni-popup-dialog>
+		</uni-popup>
+
+		<uni-popup class="set" ref="set" background-color="#fff" type="bottom">
+			<view class="setList">
+				<h4>操作</h4>
+				<p @click="deleteMenu">删除歌单</p>
+				<p @click="addSong">添加歌曲</p>
+			</view>
+		</uni-popup>
+
+		<uni-popup class="add" ref="add" background-color="#fff" type="center">
+			<uni-search-bar v-model='searchVal' :focus="false" placeholder="输入想听的歌名" />
+			<scroll-view scroll-y="true" style="height: 60vh;">
+				<view class="hotSongList" style="width: 550upx;">
+					<view class="item" v-for="(item,index) in allSong" :key="index" @click="add(item.id)">
+						<image class="img" src="../../static/player.jpeg"></image>
+						<view class="rightBox">
+							<uni-tag class="tag" :text="item.type" type="primary" size="small" />
+							<p class="name"><strong>{{item.name}}</strong></p>
+							<p>歌手：{{item.singer}}</p>
+						</view>
+					</view>
+				</view>
+			</scroll-view>
+		</uni-popup>
 
 		<bottomPlayer class="bottom" :name='song.name' :singer='song.singer' :content='song.content'></bottomPlayer>
 	</view>
@@ -43,6 +76,7 @@
 		data() {
 			return {
 				id: null,
+				username: null,
 				menuList: null,
 				menuInfo: null,
 				songList: [],
@@ -50,10 +84,30 @@
 					name: null,
 					singer: null,
 					content: null
-				}
+				},
+				deleteItem: {
+					id: null,
+					name: null
+				},
+				searchVal: null,
+				allSong: []
 			};
 		},
+		watch: {
+			searchVal() {
+				request({
+					url: 'music/song',
+					method: 'GET',
+					data: {
+						name: this.searchVal
+					}
+				}).then(res => {
+					this.allSong = res.data.list
+				})
+			}
+		},
 		onLoad(data) {
+			this.username = uni.getStorageSync('user').username
 			this.song = uni.getStorageSync('song')
 			this.id = data.menuId
 			this.getMenu()
@@ -83,6 +137,17 @@
 					this.songList = res.data.list[0].songList
 				})
 			},
+			getAllSong() {
+				request({
+					url: 'music/song',
+					method: 'get',
+					data: {
+						name: this.searchVal
+					}
+				}).then(res => {
+					this.allSong = res.data.list
+				})
+			},
 			toBack() {
 				uni.navigateBack()
 			},
@@ -90,6 +155,45 @@
 				this.song = this.songList[index]
 				uni.setStorageSync('song', this.song)
 				uni.$emit('update', true)
+			},
+			deleteHandler(item) {
+				this.deleteItem = item
+				this.$refs.popup.open()
+			},
+			dialogConfirm() {
+				request({
+					url: `music/menu/detail/${this.deleteItem.id}?menuId=${this.menuInfo.id}`,
+					method: 'DELETE'
+				}).then(res => {
+					this.getMenu()
+				})
+			},
+			setHandler() {
+				this.$refs.set.open()
+			},
+			deleteMenu() {
+				request({
+					url: 'music/menu/' + this.menuInfo.id,
+					method: 'DELETE'
+				}).then(res => {
+					uni.reLaunch({
+						url: '/pages/index/index'
+					})
+				})
+			},
+			addSong() {
+				this.getAllSong()
+				this.$refs.set.close()
+				this.$refs.add.open()
+			},
+			add(id) {
+				request({
+					url: `music/menu/detail/${id}?menuId=${this.menuInfo.id}`,
+					method: 'POST'
+				}).then(res => {
+					this.$refs.add.close()
+					this.getMenu()
+				})
 			}
 		}
 	}
@@ -137,6 +241,7 @@
 	}
 
 	.hotSongList {
+		height: 100%;
 
 		.item {
 			margin: 20upx 0;
@@ -155,6 +260,13 @@
 
 				.tag {
 					float: right;
+
+					.icon-gengduo {
+						font-size: 40upx;
+						position: relative;
+						top: 20upx;
+						left: 40upx;
+					}
 				}
 
 				.name {
@@ -166,9 +278,25 @@
 	}
 
 	.bottom {
-		z-index: 99999;
+		z-index: 999999;
 		width: 100%;
 		position: fixed;
 		bottom: 0;
+	}
+
+	.set {
+		z-index: 1000000;
+
+		.setList {
+			text-align: center;
+
+			p {
+				margin: 26upx 0;
+			}
+		}
+	}
+
+	.add {
+		z-index: 1000000;
 	}
 </style>
