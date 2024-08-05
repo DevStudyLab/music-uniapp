@@ -53,7 +53,7 @@
 		</view>
 
 
-		<bottomPlayer class="bottom" :name='song.name' :singer='song.singer' :content='song.content'>
+		<bottomPlayer class="bottom" :id='song.id' :name='song.name' :singer='song.singer' :content='song.content'>
 		</bottomPlayer>
 
 		<uni-popup class="popup" ref="share" type="share" safeArea backgroundColor="#fff">
@@ -75,6 +75,7 @@
 				songList: [],
 				menuList: [],
 				song: {
+					id: null,
 					name: null,
 					singer: null,
 					content: null

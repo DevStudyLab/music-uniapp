@@ -13,29 +13,39 @@
 
 		<uni-popup class="player" ref="player" backgroundColor="#fff">
 			<view class="popup-content">
-				<uni-nav-bar dark fixed background-color="#2979ff" status-bar left-icon="bottom" @clickLeft="back" />
-				<view class="topInfo">
-					<image class="playerImg" src="../../static/player.jpeg"></image>
-					<text class="name"><strong>{{name}}</strong></text>
-					<text>{{singer}}</text>
-					<scroll-view scroll-y="true">
-						<view>暂无歌词</view>
-						<view>暂无歌词</view>
-						<view>暂无歌词</view>
-						<view>暂无歌词</view>
-						<view>暂无歌词</view>
-						<view>暂无歌词</view>
-						<view>暂无歌词</view>
-						<view>暂无歌词</view>
-						<view>暂无歌词</view>
-						<view>暂无歌词</view>
-					</scroll-view>
+				<uni-nav-bar v-if="isComment===false" dark fixed background-color="#2979ff" status-bar
+					left-icon="bottom" @clickLeft="back" right-icon='chat' @clickRight="isComment = true" />
+				<uni-nav-bar v-else dark fixed background-color="#2979ff" status-bar left-icon="bottom"
+					@clickLeft="back" right-icon='undo' @clickRight="isComment = false" />
+				<view v-if="isComment===false">
+					<view class="topInfo">
+						<image class="playerImg" src="../../static/player.jpeg"></image>
+						<text class="name"><strong>{{name}}</strong></text>
+						<text>{{singer}}</text>
+						<scroll-view scroll-y="true">
+							<view>暂无歌词</view>
+							<view>暂无歌词</view>
+							<view>暂无歌词</view>
+							<view>暂无歌词</view>
+							<view>暂无歌词</view>
+							<view>暂无歌词</view>
+							<view>暂无歌词</view>
+							<view>暂无歌词</view>
+							<view>暂无歌词</view>
+							<view>暂无歌词</view>
+						</scroll-view>
+					</view>
+					<view class="playerOption">
+						<view class="iconfont icon-shangyishou_huaban" />
+						<view v-if="!isStart" class="iconfont icon-kaishibofang" @click="musicPlayer" />
+						<view v-else class="iconfont icon-zantingbofang" @click="musicPlayer" />
+						<view class="iconfont icon-xiayishou_huaban" />
+					</view>
 				</view>
-				<view class="playerOption">
-					<view class="iconfont icon-shangyishou_huaban" />
-					<view v-if="!isStart" class="iconfont icon-kaishibofang" @click="musicPlayer" />
-					<view v-else class="iconfont icon-zantingbofang" @click="musicPlayer" />
-					<view class="iconfont icon-xiayishou_huaban" />
+				<view v-else>
+					<scroll-view scroll-y="true" style="height: 93vh;">
+						<recursiveComment :id="id" />
+					</scroll-view>
 				</view>
 			</view>
 		</uni-popup>
@@ -46,13 +56,16 @@
 	import {
 		addBase
 	} from '../../utils/myFunction';
+	import request from '../../utils/request';
 	const innerAudioContext = uni.createInnerAudioContext();
 	export default {
 		name: "bottomPlayer",
-		props: ['name', 'singer', 'content'],
+		props: ['id', 'name', 'singer', 'content'],
 		data() {
 			return {
-				isStart: false
+				isStart: false,
+				isComment: false,
+				commentList: []
 			};
 		},
 		watch: {
@@ -65,6 +78,7 @@
 		methods: {
 			playerHandler() {
 				this.$refs.player.open('bottom')
+				this.isComment = false
 			},
 			back() {
 				this.$refs.player.close()
@@ -77,7 +91,7 @@
 					innerAudioContext.play()
 					this.isStart = true
 				}
-			}
+			},
 		}
 	}
 </script>
