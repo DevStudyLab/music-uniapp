@@ -1,7 +1,6 @@
 <template>
 	<view>
-		<uni-nav-bar rightText="设置" title="我的" @clickRight="toNext('set')" background-color="#2979ff" color="#fff"
-			fixed />
+		<uni-nav-bar title="我的" background-color="#2979ff" color="#fff" fixed />
 
 		<view class="top">
 			<image src="../../static/mine-bg.jpg" class="bg"></image>

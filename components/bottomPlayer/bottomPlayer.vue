@@ -44,7 +44,7 @@
 				</view>
 				<view v-else>
 					<scroll-view scroll-y="true" style="height: 93vh;">
-						<recursiveComment :id="id" />
+						<recursiveComment class="recursiveComment" :id="id" />
 					</scroll-view>
 				</view>
 			</view>
@@ -97,6 +97,10 @@
 </script>
 
 <style lang="scss">
+	.recursiveComment {
+		padding-bottom: 120upx;
+	}
+
 	.musicPlayer {
 		border-top: 1px solid #ccc;
 		width: 100%;
@@ -162,6 +166,7 @@
 				margin-top: 20upx;
 				text-align: center;
 				height: 300upx;
+
 			}
 		}
 
