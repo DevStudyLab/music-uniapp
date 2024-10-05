@@ -28,7 +28,7 @@
 					<view class="songLine">
 						<image :src="item.image" class="img"></image>
 						<view>
-							<view class="iconfont icon-31zhuanfa" @click="operation"></view>
+							<view class="iconfont icon-31zhuanfa" @click.stop="operation"></view>
 							<p class="name"><strong>{{item.name}}</strong></p>
 							<p class="description">{{item.description}}</p>
 							<p class="time">{{item.createTime}}</p>
@@ -230,6 +230,6 @@
 
 	.popup {
 		display: fixed;
-		z-index: 999;
+		z-index: 99999;
 	}
 </style>
