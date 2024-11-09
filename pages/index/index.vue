@@ -25,6 +25,18 @@
 			<uni-section title="歌单列表" type="line"></uni-section>
 			<view class="menuList">
 				<view v-for="(item,index) in menuList" :key="index" @click="toMenu(item.id)">
+					<uni-card :title="item.name" :extra="item.createTime">
+						<view class="songLine">
+							<image :src="item.image" class="img"></image>
+							<view>
+								<view class="iconfont icon-31zhuanfa" @click.stop="operation"></view>
+								<p class="description">{{item.description}}</p>
+							</view>
+						</view>
+					</uni-card>
+				</view>
+				<!-- 旧歌单列表 -->
+				<!-- <view v-for="(item,index) in menuList" :key="index" @click="toMenu(item.id)">
 					<view class="songLine">
 						<image :src="item.image" class="img"></image>
 						<view>
@@ -34,7 +46,7 @@
 							<p class="time">{{item.createTime}}</p>
 						</view>
 					</view>
-				</view>
+				</view> -->
 			</view>
 
 			<view style="height: 100upx;"></view>
@@ -151,19 +163,19 @@
 	.hotSongList {
 
 		.item {
-			margin: 20upx 0;
+			margin: 10upx;
 			display: flex;
 
 			.img {
 				margin-left: 6upx;
-				width: 150upx;
-				height: 150upx;
+				width: 100upx;
+				height: 100upx;
 				border-radius: 10upx;
 			}
 
 			.rightBox {
-				margin-left: 10upx;
-				width: calc(100% - 93px);
+				margin: 0 10upx 16upx 10upx;
+				width: calc(100% - 100upx);
 
 				.tag {
 					float: right;
@@ -171,40 +183,40 @@
 
 				.name {
 					font-size: 40upx;
-					margin-bottom: 20upx;
 				}
 			}
+		}
+
+		.item:not(:last-child) {
+			border-bottom: #ccc 1px solid;
 		}
 	}
 
 	.menuList {
 		.songLine {
 			display: flex;
-			padding: 10upx;
 
 			.icon-31zhuanfa {
-				padding: 10upx 0;
 				font-size: 40upx;
 				float: right;
 			}
 
 			.img {
-				width: 150upx;
-				height: 150upx;
+				width: 120upx;
+				height: 120upx;
 				border-radius: 15upx;
 			}
 
 			>view {
 				padding-left: 10upx;
 				line-height: 50upx;
-				width: calc(100% - 170upx);
+				width: calc(100% - 130upx);
 
 				.name {
 					font-size: 40upx;
 				}
 
 				.time {
-					float: right;
 					font-size: 24upx;
 					color: #ccc;
 				}

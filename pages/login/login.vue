@@ -137,7 +137,7 @@
 
 	.input {
 		width: 90%;
-		margin: 30upx 5%;
+		margin: 0 auto;
 	}
 
 	p {

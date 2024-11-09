@@ -244,19 +244,19 @@
 		height: 100%;
 
 		.item {
-			margin: 20upx 0;
+			margin: 10upx;
 			display: flex;
 
 			.img {
 				margin-left: 6upx;
-				width: 150upx;
-				height: 150upx;
+				width: 100upx;
+				height: 100upx;
 				border-radius: 10upx;
 			}
 
 			.rightBox {
-				margin-left: 10upx;
-				width: calc(100% - 93px);
+				margin: 0 10upx 16upx 10upx;
+				width: calc(100% - 60px);
 
 				.tag {
 					float: right;
@@ -271,9 +271,12 @@
 
 				.name {
 					font-size: 40upx;
-					margin-bottom: 20upx;
 				}
 			}
+		}
+
+		.item:not(:last-child) {
+			border-bottom: #ccc 1px solid;
 		}
 	}
 
