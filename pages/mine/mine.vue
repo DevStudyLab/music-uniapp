@@ -1,9 +1,9 @@
 <template>
 	<view>
-		<uni-nav-bar title="我的" background-color="#2979ff" color="#fff" fixed />
+		<uni-nav-bar title="我的" background-color="#2979ff" color="#fff" :border="false" fixed />
 
 		<view class="top">
-			<image src="../../static/mine-bg.jpg" class="bg"></image>
+			<image src="../../static/mine-bg.png" class="bg"></image>
 			<image class="img" :src="avatar"></image>
 		</view>
 		<p class="username">{{username}}</p>
@@ -108,7 +108,8 @@
 		.bg {
 			position: absolute;
 			z-index: -1;
-			height: 750upx;
+			width: 100%;
+			height: 300px;
 			top: -100upx;
 		}
 

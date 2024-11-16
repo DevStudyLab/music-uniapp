@@ -1,7 +1,8 @@
 <template>
 	<view v-if="menuInfo">
 		<uni-nav-bar v-if="username===menuInfo.user.username" title="首页" left-icon="left" leftText="返回"
-			@clickLeft="toBack" rightText="设置" @clickRight="setHandler" background-color="#2979ff" color="#fff" fixed />
+			@clickLeft="toBack" rightText="设置" @clickRight="setHandler" background-color="#2979ff" color="#fff"
+			:border="false" fixed />
 		<uni-nav-bar v-else title="首页" left-icon="left" leftText="返回" @clickLeft="toBack" background-color="#2979ff"
 			color="#fff" fixed />
 

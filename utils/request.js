@@ -1,7 +1,7 @@
 export default config => {
 	return new Promise((resolve, reject) => {
 		uni.request({
-			url: "http://localhost:8080/" + config.url,
+			url: "https://backend.recha.us.kg/" + config.url,
 			method: config.method,
 			data: config.data,
 			timeout: 20000,

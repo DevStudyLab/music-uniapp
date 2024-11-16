@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<uni-nav-bar title="首页" background-color="#2979ff" color="#fff" fixed />
+		<uni-nav-bar title="首页" background-color="#2979ff" color="#fff" :border="false" fixed />
 		<uni-search-bar v-model='searchVal' :focus="false" placeholder="输入想听的歌名" />
 
 		<view v-if="!searchVal">
@@ -9,6 +9,16 @@
 					<image class="img" :src="'../../static/banner ('+(index+1)+').jpg'"></image>
 				</swiper-item>
 			</swiper>
+
+			<uni-section title="歌单列表" type="line"></uni-section>
+			<div class="menu-scroll-container">
+				<div v-for="(item, index) in menuList" :key="index" class="menu-item" @click="toMenu(item.id)">
+					<img :src="item.image" class="menu-image" alt="Menu Item Image" />
+					<div class="menu-info">
+						<p class="menu-name">{{ item.name }}</p>
+					</div>
+				</div>
+			</div>
 
 			<uni-section title="热门歌曲" type="line"></uni-section>
 			<view class="hotSongList">
@@ -20,33 +30,6 @@
 						<p>歌手：{{item.singer}}</p>
 					</view>
 				</view>
-			</view>
-
-			<uni-section title="歌单列表" type="line"></uni-section>
-			<view class="menuList">
-				<view v-for="(item,index) in menuList" :key="index" @click="toMenu(item.id)">
-					<uni-card :title="item.name" :extra="item.createTime">
-						<view class="songLine">
-							<image :src="item.image" class="img"></image>
-							<view>
-								<view class="iconfont icon-31zhuanfa" @click.stop="operation"></view>
-								<p class="description">{{item.description}}</p>
-							</view>
-						</view>
-					</uni-card>
-				</view>
-				<!-- 旧歌单列表 -->
-				<!-- <view v-for="(item,index) in menuList" :key="index" @click="toMenu(item.id)">
-					<view class="songLine">
-						<image :src="item.image" class="img"></image>
-						<view>
-							<view class="iconfont icon-31zhuanfa" @click.stop="operation"></view>
-							<p class="name"><strong>{{item.name}}</strong></p>
-							<p class="description">{{item.description}}</p>
-							<p class="time">{{item.createTime}}</p>
-						</view>
-					</view>
-				</view> -->
 			</view>
 
 			<view style="height: 100upx;"></view>
@@ -146,12 +129,81 @@
 			},
 			operation() {
 				this.$refs.share.open()
-			}
+			},
 		}
 	}
 </script>
 
 <style lang="scss">
+	.menu-scroll-container {
+		display: flex;
+		flex-wrap: nowrap;
+		overflow-x: auto;
+		-webkit-overflow-scrolling: touch;
+		padding: 10px;
+
+		.menu-item {
+			flex: 0 0 auto;
+			min-width: 100px;
+			max-width: 160px;
+			position: relative;
+
+			.menu-image {
+				width: 100px;
+				height: auto;
+				object-fit: cover; // 图片保持覆盖整个区域
+				border-radius: 8px; // 可选：圆角效果
+			}
+
+			.menu-info {
+				position: absolute;
+				bottom: 5px;
+				left: 5px;
+				right: 5px;
+				background: rgba(0, 0, 0, 0.5);
+				color: #fff;
+				padding: 10px;
+				border-radius: 8px;
+				opacity: 0.8;
+
+				.menu-name {
+					text-align: center;
+					font-size: 14px;
+					overflow: hidden;
+					text-overflow: ellipsis;
+					white-space: nowrap;
+				}
+			}
+		}
+	}
+
+
+	.songLine {
+		display: flex;
+		align-items: center;
+	}
+
+	.info-container {
+		margin-left: 16px; // 图片和信息之间的间距
+	}
+
+	.icon-31zhuanfa {
+		font-size: 24px; // 图标大小
+		color: #999; // 图标颜色
+		cursor: pointer; // 鼠标悬停时显示为可点击
+	}
+
+	.description {
+		margin-top: 8px; // 图标和描述之间的间距
+		font-size: 14px; // 描述字体大小
+		color: #666; // 描述字体颜色
+		overflow: hidden; // 防止文本溢出
+		text-overflow: ellipsis; // 文本溢出时显示省略号
+		white-space: nowrap; // 禁止文本换行
+	}
+
+
+
 	.block {
 
 		.img {
