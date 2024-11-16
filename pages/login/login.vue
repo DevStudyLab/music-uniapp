@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<uni-nav-bar title="登录" background-color="#2979ff" color="#fff" />
+		<uni-nav-bar title="登录" background-color="#2979ff" color="#fff" status-bar :border="false" />
 		<image class="logo" src="/static/logo.png" />
 
 		<uni-easyinput class="input" prefixIcon="person" trim="all" v-model="username" placeholder="请输入账号" />
@@ -136,8 +136,8 @@
 	}
 
 	.input {
-		width: 90%;
-		margin: 0 auto;
+		width: 80%;
+		margin: 10px auto;
 	}
 
 	p {

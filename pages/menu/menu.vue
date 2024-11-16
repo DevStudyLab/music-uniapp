@@ -1,12 +1,13 @@
 <template>
 	<view v-if="menuInfo">
 		<uni-nav-bar v-if="username===menuInfo.user.username" title="首页" left-icon="left" leftText="返回"
-			@clickLeft="toBack" rightText="设置" @clickRight="setHandler" background-color="#2979ff" color="#fff"
-			:border="false" fixed />
+			@clickLeft="toBack" rightText="设置" @clickRight="setHandler" background-color="#2979ff" color="#fff" fixed
+			status-bar :border="false" />
 		<uni-nav-bar v-else title="首页" left-icon="left" leftText="返回" @clickLeft="toBack" background-color="#2979ff"
-			color="#fff" fixed />
+			color="#fff" fixed status-bar :border="false" />
 
 		<view class="top">
+
 			<image class="img" :src="menuInfo.image"></image>
 			<view class="right">
 				<view class="time">{{menuInfo.createTime}}</view>
@@ -40,7 +41,7 @@
 				:content="'确定从'+menuInfo.name+'中删除'+deleteItem.name" @confirm="dialogConfirm"></uni-popup-dialog>
 		</uni-popup>
 
-		<uni-popup class="set" ref="set" background-color="#fff" type="bottom">
+		<uni-popup class="set" ref="set" background-color="#fff" type="center">
 			<view class="setList">
 				<h4>操作</h4>
 				<p @click="deleteMenu">删除歌单</p>
@@ -201,6 +202,19 @@
 </script>
 
 <style lang="scss">
+	.setText {
+		position: absolute;
+		top: 0px;
+		right: 15px;
+		line-height: 45px;
+		font-size: 14px;
+		z-index: 9999;
+
+		// #ifdef APP-PLUS
+		top: 30px;
+		// #endif
+	}
+
 	.top {
 		background-image: url('../../static/menuBg.png');
 		background-size: 100%;
@@ -292,6 +306,7 @@
 		z-index: 1000000;
 
 		.setList {
+			padding: 20px 50px;
 			text-align: center;
 
 			p {

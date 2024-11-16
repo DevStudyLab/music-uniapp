@@ -3,9 +3,9 @@
 	font-family: 'iconfont';
 	/* Project id 4344231 */
 	src:
-		url('//at.alicdn.com/t/c/font_4344231_wu1cjaoew4e.woff2?t=1722398742577') format('woff2'),
-		url('//at.alicdn.com/t/c/font_4344231_wu1cjaoew4e.woff?t=1722398742577') format('woff'),
-		url('//at.alicdn.com/t/c/font_4344231_wu1cjaoew4e.ttf?t=1722398742577') format('truetype');
+		url('https://at.alicdn.com/t/c/font_4344231_wu1cjaoew4e.woff2?t=1722398742577') format('woff2'),
+		url('https://at.alicdn.com/t/c/font_4344231_wu1cjaoew4e.woff?t=1722398742577') format('woff'),
+		url('https://at.alicdn.com/t/c/font_4344231_wu1cjaoew4e.ttf?t=1722398742577') format('truetype');
 }
 
 .iconfont {

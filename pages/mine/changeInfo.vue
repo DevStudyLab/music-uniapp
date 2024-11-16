@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<uni-nav-bar left-icon="left" leftText="返回" title="个人信息修改" background-color="#2979ff" color="#fff"
-			@clickLeft="toBack" />
+			@clickLeft="toBack" status-bar :border="false" />
 
 		<uni-popup ref="alertDialog" type="dialog">
 			<uni-popup-dialog type="success" cancelText="留在此页" confirmText="返回上一页" content="个人信息更新成功"

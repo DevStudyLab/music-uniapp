@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<uni-nav-bar title="我的" background-color="#2979ff" color="#fff" :border="false" fixed />
+		<uni-nav-bar title="我的" background-color="#2979ff" color="#fff" fixed status-bar :border="false" />
 
 		<view class="top">
 			<image src="../../static/mine-bg.png" class="bg"></image>
@@ -27,7 +27,7 @@
 			</view>
 		</view>
 
-		<uni-section title="你创建的歌单" type="line"></uni-section>
+		<uni-section title="我创建的歌单" type="line"></uni-section>
 		<view v-for="(item,index) in menuList" :key="index" @click="toMenu(item.id)">
 			<view class="songLine">
 				<image :src="item.image" class="img"></image>
@@ -110,7 +110,7 @@
 			z-index: -1;
 			width: 100%;
 			height: 300px;
-			top: -100upx;
+			top: 0px;
 		}
 
 		.img {

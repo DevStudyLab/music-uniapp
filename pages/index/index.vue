@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<uni-nav-bar title="首页" background-color="#2979ff" color="#fff" :border="false" fixed />
+		<uni-nav-bar title="首页" background-color="#2979ff" color="#fff" status-bar :border="false" fixed />
 		<uni-search-bar v-model='searchVal' :focus="false" placeholder="输入想听的歌名" />
 
 		<view v-if="!searchVal">
@@ -22,7 +22,7 @@
 
 			<uni-section title="热门歌曲" type="line"></uni-section>
 			<view class="hotSongList">
-				<view class="item" v-for="(item,index) in hotSongList.slice(0,3)" :key="index" @click="setMusic(index)">
+				<view class="item" v-for="(item,index) in hotSongList" :key="index" @click="setMusic(index)">
 					<image class="img" src="../../static/player.jpeg"></image>
 					<view class="rightBox">
 						<uni-tag class="tag" :text="item.type" type="primary" size="small" />
@@ -151,8 +151,8 @@
 			.menu-image {
 				width: 100px;
 				height: auto;
-				object-fit: cover; // 图片保持覆盖整个区域
-				border-radius: 8px; // 可选：圆角效果
+				object-fit: cover;
+				border-radius: 8px;
 			}
 
 			.menu-info {
@@ -184,22 +184,22 @@
 	}
 
 	.info-container {
-		margin-left: 16px; // 图片和信息之间的间距
+		margin-left: 16px;
 	}
 
 	.icon-31zhuanfa {
-		font-size: 24px; // 图标大小
-		color: #999; // 图标颜色
-		cursor: pointer; // 鼠标悬停时显示为可点击
+		font-size: 24px;
+		color: #999;
+		cursor: pointer;
 	}
 
 	.description {
-		margin-top: 8px; // 图标和描述之间的间距
-		font-size: 14px; // 描述字体大小
-		color: #666; // 描述字体颜色
-		overflow: hidden; // 防止文本溢出
-		text-overflow: ellipsis; // 文本溢出时显示省略号
-		white-space: nowrap; // 禁止文本换行
+		margin-top: 8px;
+		font-size: 14px;
+		color: #666;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 	}
 
 
@@ -274,7 +274,6 @@
 				}
 
 				.description {
-					// 字数超过一行隐藏
 					display: -webkit-box;
 					-webkit-box-orient: vertical;
 					-webkit-line-clamp: 1;
@@ -289,7 +288,11 @@
 		z-index: 99999;
 		width: 100%;
 		position: fixed;
-		bottom: 100upx;
+		bottom: 50px;
+
+		// #ifdef APP-PLUS
+		bottom: 0;
+		// #endif
 	}
 
 	.popup {

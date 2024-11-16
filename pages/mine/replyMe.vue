@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<uni-nav-bar left-icon="left" leftText="返回" title="我收到的回复" background-color="#2979ff" color="#fff"
-			@clickLeft="toBack" fixed />
+			@clickLeft="toBack" fixed status-bar :border="false" />
 		<view v-for="(item,index) in commentList" :key="index">
 			<uni-card v-if="item.childComments" :title="'评论'+(index+1)" extra="回复">
 				<text>原评论：{{item.content}}</text>

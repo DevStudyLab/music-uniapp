@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<uni-nav-bar left-icon="left" leftText="返回" title="我的评论列表" background-color="#2979ff" color="#fff"
-			@clickLeft="toBack" fixed />
+			@clickLeft="toBack" fixed status-bar :border="false" />
 		<view v-for="(item,index) in commentList" :key="index">
 			<uni-card v-if="commentList" :title="'歌曲：'+item.name" :extra="item.itId===0?'评论':'回复'">
 				<text class="uni-body">{{item.content}}</text>
