@@ -48,6 +48,7 @@
 						username: this.username
 					}
 				}).then(res => {
+					uni.hideLoading()
 					let user = res.data.list[0]
 					if (user === undefined) {
 						this.errorToast()
@@ -102,7 +103,6 @@
 				})
 			},
 			errorToast() {
-				uni.hideLoading()
 				uni.showToast({
 					title: "账号/密码错误",
 					icon: "error",
@@ -114,18 +114,18 @@
 				})
 			},
 			successToast(user) {
-				uni.hideLoading()
 				uni.showToast({
 					title: "登录成功",
 					icon: "success",
 					mask: true,
 					success: (res) => {
 						uni.setStorageSync("user", user)
-						setInterval(() => {
+						let timer = setTimeout(() => {
 							uni.switchTab({
-								url: "/pages/index/index",
+								url: "/pages/index/index"
 							})
 						}, 500)
+						setTimeout(timer)
 					}
 				})
 			},

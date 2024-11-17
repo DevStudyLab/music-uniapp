@@ -135,7 +135,6 @@
 						menuId: this.id
 					}
 				}).then(res => {
-					console.log(res);
 					this.songList = res.data.list[0].songList
 				})
 			},
