@@ -256,6 +256,7 @@
 	}
 
 	.hotSongList {
+		padding-bottom: 50px;
 		height: 100%;
 
 		.item {

@@ -4,7 +4,7 @@
 		<uni-search-bar v-model='searchVal' :focus="false" placeholder="输入想听的歌名" />
 
 		<view v-if="!searchVal">
-			<swiper class="block" circular indicator-dots autoplay :interval="3000" :duration="1000">
+			<swiper class="block" circular indicator-dots autoplay :interval="4000" :duration="1500">
 				<swiper-item v-for="(item,index) in 4" :key="index">
 					<image class="img" :src="'../../static/banner ('+(index+1)+').jpg'"></image>
 				</swiper-item>
@@ -143,9 +143,9 @@
 		padding: 10px;
 
 		.menu-item {
+			margin-right: 10px;
 			flex: 0 0 auto;
-			min-width: 100px;
-			max-width: 160px;
+			width: 100px;
 			position: relative;
 
 			.menu-image {
