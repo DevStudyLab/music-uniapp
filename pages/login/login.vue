@@ -7,12 +7,12 @@
 		<uni-easyinput class="input" prefixIcon="locked" trim="all" v-model="password" placeholder="请输入密码"
 			type="password" />
 
-
 		<p @click="toRegister" v-if="status===0">没有账号？去注册</p>
 		<p @click="toLogin" v-else>已有账号？去登录</p>
 
 		<button class="btn" @click="loginHandler" v-if="status===0">登录</button>
 		<button class="btn" @click="registerHandler" v-else>注册</button>
+
 		<view class="bottom" v-if="status===0">
 			<p>其他登录方式</p>
 			<view class="line">
@@ -37,6 +37,10 @@
 		},
 		methods: {
 			loginHandler() {
+				uni.showLoading({
+					mask: true,
+					title: '登录中'
+				})
 				request({
 					url: 'music/user',
 					method: 'GET',
@@ -65,6 +69,10 @@
 					}
 				}).then(res => {
 					if (res.data.list.length === 0) {
+						uni.showLoading({
+							title: '注册中',
+							mask: true
+						})
 						request({
 							url: 'music/user',
 							method: 'POST',
@@ -73,25 +81,32 @@
 								password: this.password
 							}
 						}).then(res => {
+							uni.hideLoading()
 							uni.showToast({
 								title: '注册成功',
+								mask: true,
 								success: () => {
 									this.status = 0
 								}
 							})
+						}).catch(() => {
+							uni.hideLoading()
 						})
 					} else {
 						uni.showToast({
 							title: '账号名已被占用',
-							icon: 'error'
+							icon: 'error',
+							mask: true
 						})
 					}
 				})
 			},
 			errorToast() {
+				uni.hideLoading()
 				uni.showToast({
 					title: "账号/密码错误",
 					icon: "error",
+					mask: true,
 					success: () => {
 						this.username = null
 						this.password = null
@@ -99,23 +114,26 @@
 				})
 			},
 			successToast(user) {
+				uni.hideLoading()
 				uni.showToast({
 					title: "登录成功",
 					icon: "success",
+					mask: true,
 					success: (res) => {
-						// user存入全局
 						uni.setStorageSync("user", user)
-						// 跳转
-						uni.switchTab({
-							url: "/pages/index/index"
-						})
+						setInterval(() => {
+							uni.switchTab({
+								url: "/pages/index/index",
+							})
+						}, 500)
 					}
 				})
 			},
 			otherLogin(type) {
 				uni.showToast({
 					title: "暂不支持" + type + "登录",
-					icon: 'error'
+					icon: 'error',
+					mask: true
 				})
 			},
 			toRegister() {

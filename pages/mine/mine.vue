@@ -60,9 +60,11 @@
 			};
 		},
 		onLoad() {
+			this.getMenuList()
+		},
+		onShow() {
 			this.avatar = addBase(uni.getStorageSync('user').avatar)
 			this.username = uni.getStorageSync('user').username
-			this.getMenuList()
 		},
 		methods: {
 			getMenuList() {

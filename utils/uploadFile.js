@@ -7,7 +7,8 @@ export default config => {
 			sourceType: ['album', 'camera'],
 			success: (res) => {
 				uni.showLoading({
-					title: '图片上传中'
+					title: '图片上传中',
+					mask: true
 				})
 				const path = res.tempFilePaths[0]
 				uni.uploadFile({
