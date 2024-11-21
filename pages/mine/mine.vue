@@ -27,7 +27,7 @@
 			</view>
 		</view>
 
-		<uni-section title="我创建的歌单" type="line"></uni-section>
+		<uni-section title="我创建的歌单"></uni-section>
 		<view v-for="(item,index) in menuList" :key="index" @click="toMenu(item.id)">
 			<view class="songLine">
 				<image :src="item.image" class="img"></image>
@@ -152,43 +152,126 @@
 
 	.songLine {
 		display: flex;
-		padding: 10upx;
+		padding: 20upx;
+		margin: 20upx;
+		background: #fff;
+		border-radius: 16upx;
+		box-shadow: 0 4upx 12upx rgba(0, 0, 0, 0.05);
+		transition: all 0.3s ease;
 
-		.icon-31zhuanfa {
-			padding: 10upx 0;
-			font-size: 40upx;
-			float: right;
+		&:active {
+			transform: scale(0.98);
+			background: #f8f8f8;
 		}
 
 		.img {
 			width: 150upx;
 			height: 150upx;
-			border-radius: 15upx;
+			border-radius: 12upx;
+			box-shadow: 0 4upx 12upx rgba(0, 0, 0, 0.1);
 		}
 
 		>view {
-			padding-left: 10upx;
-			line-height: 50upx;
-			width: calc(100% - 170upx);
+			padding-left: 24upx;
+			flex: 1;
+			position: relative;
 
-			.time {
-				float: right;
-				font-size: 24upx;
-				color: #ccc;
+			.icon-31zhuanfa {
+				position: absolute;
+				right: 20upx;
+				top: 20upx;
+				font-size: 40upx;
+				color: #999;
+				padding: 10upx;
+				transition: all 0.3s ease;
+
+				&:active {
+					transform: scale(0.9) rotate(45deg);
+					color: #2979ff;
+				}
 			}
 
 			.name {
-				font-size: 40upx;
+				font-size: 36upx;
+				color: #333;
+				margin-bottom: 12upx;
+
+				strong {
+					font-weight: 600;
+				}
 			}
 
 			.description {
-				// 字数超过一行隐藏
+				font-size: 26upx;
+				color: #666;
 				display: -webkit-box;
 				-webkit-box-orient: vertical;
-				-webkit-line-clamp: 1;
+				-webkit-line-clamp: 2;
 				overflow: hidden;
-				text-overflow: ellipsis;
+				line-height: 1.6;
+				margin-bottom: 12upx;
 			}
+
+			.time {
+				font-size: 24upx;
+				color: #999;
+			}
+		}
+	}
+
+	::v-deep .uni-section {
+		padding: 10upx 15upx 0upx;
+
+		.uni-section-header {
+			position: relative;
+			display: flex;
+			align-items: center;
+			margin-bottom: 12upx;
+
+			.uni-section__content-title {
+				font-size: 32upx;
+				font-weight: 700;
+				color: #333;
+				position: relative;
+				padding-left: 20upx;
+				letter-spacing: 1upx;
+
+				&::before {
+					content: '';
+					position: absolute;
+					left: 0;
+					top: 50%;
+					transform: translateY(-50%);
+					width: 6upx;
+					height: 28upx;
+					border-radius: 3upx;
+					background: linear-gradient(to bottom, #1c6fee, #4785ee);
+				}
+			}
+
+			&::after {
+				content: '';
+				position: absolute;
+				left: 20upx;
+				bottom: -8upx;
+				width: 50upx;
+				height: 3upx;
+				background: linear-gradient(to right, #2979ff, transparent);
+				border-radius: 2upx;
+			}
+		}
+	}
+
+	::v-deep .uni-section:hover {
+		.uni-section__content-title {
+			&::before {
+				background: linear-gradient(to bottom, #1c6fee, #4785ee);
+			}
+		}
+
+		.uni-section-header::after {
+			width: 80upx;
+			transition: width 0.3s ease;
 		}
 	}
 

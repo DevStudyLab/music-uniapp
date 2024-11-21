@@ -1,9 +1,9 @@
 <template>
 	<view v-if="menuInfo">
-		<uni-nav-bar v-if="username===menuInfo.user.username" title="首页" left-icon="left" leftText="返回"
+		<uni-nav-bar v-if="username===menuInfo.user.username" title="音渊" left-icon="left" leftText="返回"
 			@clickLeft="toBack" rightText="设置" @clickRight="setHandler" background-color="#2979ff" color="#fff" fixed
 			status-bar :border="false" />
-		<uni-nav-bar v-else title="首页" left-icon="left" leftText="返回" @clickLeft="toBack" background-color="#2979ff"
+		<uni-nav-bar v-else title="音渊" left-icon="left" leftText="返回" @clickLeft="toBack" background-color="#2979ff"
 			color="#fff" fixed status-bar :border="false" />
 
 		<view class="top">
@@ -215,83 +215,174 @@
 	}
 
 	.top {
-		background-image: url('../../static/menuBg.png');
-		background-size: 100%;
+		background-image: linear-gradient(to bottom, rgba(41, 121, 255, 0.1), transparent);
+		padding: 30upx 0;
 		display: flex;
+		margin-bottom: 30upx;
 
 		.img {
 			margin: 20upx;
 			width: 200upx;
 			height: 200upx;
-			border-radius: 20upx;
+			border-radius: 16upx;
+			box-shadow: 0 8upx 24upx rgba(0, 0, 0, 0.15);
+			transition: all 0.3s ease;
+
+			&:active {
+				transform: scale(0.98);
+			}
 		}
 
 		.right {
-			width: calc(100% - 140px);
-			height: 200upx;
-			margin: 20upx 20upx 20upx 0;
-
-			strong {
-				font-size: 40upx;
-			}
+			flex: 1;
+			padding: 20upx 30upx 20upx 0;
 
 			.time {
 				float: right;
-				color: #666;
-				font-size: 26upx;
+				color: #999;
+				font-size: 24upx;
+			}
+
+			strong {
+				font-size: 36upx;
+				color: #333;
+				margin-bottom: 16upx;
+				display: block;
 			}
 
 			.text {
-				margin-top: 4upx;
-				font-size: 28upx;
-				// 字数超过俩行隐藏
+				font-size: 26upx;
+				color: #666;
+				margin-top: 12upx;
+				line-height: 1.6;
 				display: -webkit-box;
 				-webkit-box-orient: vertical;
 				-webkit-line-clamp: 2;
 				overflow: hidden;
-				text-overflow: ellipsis;
 			}
 		}
 	}
 
 	.hotSongList {
-		padding-bottom: 50px;
-		height: 100%;
+		padding: 20upx;
+		padding-bottom: 100upx;
 
 		.item {
-			margin: 10upx;
 			display: flex;
+			align-items: center;
+			padding: 20upx;
+			margin-bottom: 20upx;
+			background: #fff;
+			border-radius: 12upx;
+			box-shadow: 0 4upx 12upx rgba(0, 0, 0, 0.05);
+			transition: all 0.2s;
+
+			&:active {
+				transform: scale(0.98);
+				background: #f8f8f8;
+			}
 
 			.img {
-				margin-left: 6upx;
 				width: 100upx;
 				height: 100upx;
-				border-radius: 10upx;
+				border-radius: 12upx;
+				margin-right: 24upx;
+				box-shadow: 0 4upx 8upx rgba(0, 0, 0, 0.1);
 			}
 
 			.rightBox {
-				margin: 0 10upx 16upx 10upx;
-				width: calc(100% - 60px);
+				flex: 1;
+				min-width: 0;
+				position: relative;
+				padding-right: 120upx;
 
 				.tag {
-					float: right;
+					position: absolute;
+					right: 0;
+					top: 50%;
+					transform: translateY(-50%);
+					display: flex;
+					align-items: center;
 
 					.icon-gengduo {
 						font-size: 40upx;
-						position: relative;
-						top: 20upx;
-						left: 40upx;
+						color: #999;
+						margin-left: 20upx;
+						padding: 10upx;
+						transition: all 0.3s ease;
+
+						&:active {
+							transform: scale(0.9) rotate(90deg);
+							color: #2979ff;
+						}
 					}
 				}
 
 				.name {
-					font-size: 40upx;
+					font-size: 32upx;
+					color: #333;
+					margin-bottom: 8upx;
+					overflow: hidden;
+					text-overflow: ellipsis;
+					white-space: nowrap;
+
+					strong {
+						font-weight: 600;
+					}
+				}
+
+				p {
+					font-size: 24upx;
+					color: #999;
+					margin: 0;
+					overflow: hidden;
+					text-overflow: ellipsis;
+					white-space: nowrap;
 				}
 			}
 		}
+	}
 
-		.item:not(:last-child) {
-			border-bottom: #ccc 1px solid;
+	.set {
+		.setList {
+			padding: 40upx;
+			text-align: center;
+			background: #fff;
+			border-radius: 20upx;
+
+			h4 {
+				font-size: 32upx;
+				color: #333;
+				margin-bottom: 30upx;
+			}
+
+			p {
+				font-size: 28upx;
+				color: #666;
+				padding: 20upx 0;
+				transition: all 0.3s ease;
+
+				&:active {
+					color: #2979ff;
+					transform: scale(0.98);
+				}
+			}
+		}
+	}
+
+	.add {
+		::v-deep .uni-searchbar {
+			padding: 20upx;
+			background: #fff;
+		}
+
+		.hotSongList {
+			padding: 0 20upx;
+
+			.item {
+				margin-bottom: 16upx;
+				padding: 16upx;
+			}
 		}
 	}
 
@@ -300,22 +391,5 @@
 		width: 100%;
 		position: fixed;
 		bottom: 0;
-	}
-
-	.set {
-		z-index: 1000000;
-
-		.setList {
-			padding: 20px 50px;
-			text-align: center;
-
-			p {
-				margin: 26upx 0;
-			}
-		}
-	}
-
-	.add {
-		z-index: 1000000;
 	}
 </style>

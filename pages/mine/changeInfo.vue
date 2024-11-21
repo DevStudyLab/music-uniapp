@@ -87,25 +87,160 @@
 <style lang="scss">
 	.box {
 		padding: 40upx;
+		background: linear-gradient(to bottom, #f8f8f8, #fff);
 
 		.imgBox {
 			display: flex;
 			justify-content: center;
+			margin-bottom: 60upx;
+			position: relative;
 
 			.avatar {
-				width: 200upx;
-				height: 200upx;
-				border: 1px solid #ccc;
+				width: 180upx;
+				height: 180upx;
 				border-radius: 50%;
+				box-shadow: 0 8upx 32upx rgba(41, 121, 255, 0.15);
+				border: 4upx solid rgba(255, 255, 255, 0.9);
+				transition: all 0.3s ease;
+				position: relative;
+
+				&:active {
+					transform: scale(0.95);
+				}
+
+				&::after {
+					content: '点击更换头像';
+					position: absolute;
+					bottom: -40upx;
+					left: 50%;
+					transform: translateX(-50%);
+					font-size: 24upx;
+					color: #999;
+					white-space: nowrap;
+				}
 			}
 		}
 
-		.input {
-			margin-top: 20upx;
+		::v-deep .input {
+			margin-bottom: 30upx;
+
+			.uni-easyinput__content {
+				background: #fff;
+				border-radius: 12upx;
+				padding: 16upx 24upx;
+				box-shadow: 0 4upx 16upx rgba(0, 0, 0, 0.05);
+				border: 2upx solid transparent;
+				transition: all 0.3s ease;
+
+				.uni-icons {
+					color: #2979ff;
+				}
+
+				.uni-easyinput__content-input {
+					font-size: 28upx;
+					color: #333;
+
+					&::placeholder {
+						color: #999;
+					}
+				}
+
+				&.is-focused {
+					border-color: #2979ff;
+					box-shadow: 0 4upx 20upx rgba(41, 121, 255, 0.15);
+				}
+			}
 		}
 
-		.input>:last-child {
-			margin-bottom: 10upx;
+		::v-deep .uni-data-checkbox {
+			margin-top: 40upx;
+			display: flex;
+			justify-content: center;
+
+			.uni-data-checkbox-item {
+				margin: 0 20upx;
+
+				.uni-checkbox-input {
+					border-radius: 8upx;
+					border-color: #2979ff;
+
+					&.uni-checkbox-input-checked {
+						background: #2979ff;
+					}
+				}
+			}
+
+			.checkbox__inner {
+				padding: 16upx 40upx;
+				background: #f5f5f5;
+				border-radius: 40upx;
+				font-size: 28upx;
+				color: #666;
+				transition: all 0.3s ease;
+
+				&.is-checked {
+					background: #2979ff;
+					color: #fff;
+				}
+
+				&:active {
+					transform: scale(0.95);
+				}
+			}
+		}
+	}
+
+	.btn {
+		width: 85%;
+		margin: 10upx auto;
+		background: linear-gradient(to right, #2979ff, #5e96ff);
+		border-radius: 44upx;
+		color: #fff;
+		font-size: 32upx;
+		font-weight: 500;
+		letter-spacing: 2upx;
+		box-shadow: 0 8upx 16upx rgba(41, 121, 255, 0.2);
+		transition: all 0.3s ease;
+
+		&:active {
+			transform: scale(0.98);
+			box-shadow: 0 4upx 8upx rgba(41, 121, 255, 0.2);
+		}
+	}
+
+	::v-deep .uni-popup-dialog {
+		border-radius: 20upx;
+		overflow: hidden;
+
+		.uni-dialog-title {
+			font-size: 32upx;
+			color: #333;
+			font-weight: 600;
+		}
+
+		.uni-dialog-content {
+
+			.uni-dialog-content-text {
+				font-size: 28upx;
+				color: #666;
+			}
+		}
+
+		.uni-dialog-button-group {
+			border-top: 2upx solid #f5f5f5;
+
+			.uni-dialog-button {
+				font-size: 28upx;
+
+				&:first-child {
+					color: #666;
+				}
+
+				&:last-child {
+					color: #2979ff;
+					font-weight: 500;
+				}
+			}
 		}
 	}
 </style>
