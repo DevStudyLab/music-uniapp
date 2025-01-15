@@ -96,7 +96,35 @@
 					}
 				}).then(res => {
 					this.$refs.inputDialog.close()
-					// TODO 刷新页面（暂时无法实现）
+					// 将新评论添加到评论列表
+					if (this.replyId === 0) {
+						this.commentList.push({
+							content: val,
+							user: {
+								username: uni.getStorageSync('user').username,
+								avatar: uni.getStorageSync('user').avatar
+							},
+							itId: 0,
+							id: res.data.id
+						});
+					} else {
+						// 找到对应的父评论并添加子评论
+						const parentComment = this.commentList.find(comment => comment.id === this.replyId);
+						if (parentComment) {
+							if (!parentComment.childComments) {
+								parentComment.childComments = [];
+							}
+							parentComment.childComments.push({
+								content: val,
+								user: {
+									username: uni.getStorageSync('user').username,
+									avatar: uni.getStorageSync('user').avatar
+								},
+								itId: this.replyId,
+								id: res.data.id
+							});
+						}
+					}
 				})
 			}
 		}

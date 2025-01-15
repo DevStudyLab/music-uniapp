@@ -21,7 +21,7 @@
 				<view class=" iconfont icon-shoudaohuifu" />
 				<p>收到回复</p>
 			</view>
-			<view class="block" @click="toLogin">
+			<view class="block" @click="logout">
 				<view class="iconfont icon-qiehuanyonghu" />
 				<p>切换账号</p>
 			</view>
@@ -84,11 +84,6 @@
 					url: '/pages/mine/' + path
 				})
 			},
-			toLogin() {
-				uni.reLaunch({
-					url: '/pages/login/login'
-				})
-			},
 			toMenu(id) {
 				uni.navigateTo({
 					url: `/pages/menu/menu?menuId=${id}`
@@ -96,6 +91,14 @@
 			},
 			operation() {
 				this.$refs.share.open()
+			},
+			logout() {
+				// 清除存储的用户信息
+				uni.removeStorageSync('user');
+				// 跳转到登录页
+				uni.reLaunch({
+					url: '/pages/login/login'
+				});
 			}
 		}
 	}

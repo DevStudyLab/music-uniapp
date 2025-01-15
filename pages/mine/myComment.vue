@@ -12,122 +12,122 @@
 </template>
 
 <script>
-	import request from '../../utils/request';
-	export default {
-		data() {
-			return {
-				id: null,
-				commentList: [],
-				pageNum: 1,
-				pageSize: 6,
-				total: 0,
-				status: 'more',
-				contentText: {
-					contentdown: '上拉显示更多',
-					contentrefresh: '加载中...',
-					contentnomore: '没有更多数据了'
-				}
-			};
-		},
-		onReachBottom() {
-			console.log('触底了！')
-			if (this.status === 'loading') return
-			if (this.total > this.commentList.length) {
-				this.status = 'loading'
-				this.pageNum++
-				this.getCommentList()
+import request from '../../utils/request';
+export default {
+	data() {
+		return {
+			id: null,
+			commentList: [],
+			pageNum: 1,
+			pageSize: 6,
+			total: 0,
+			status: 'more',
+			contentText: {
+				contentdown: '上拉显示更多',
+				contentrefresh: '加载中...',
+				contentnomore: '没有更多数据了'
 			}
-		},
-		onLoad() {
-			this.id = uni.getStorageSync('user').id
+		};
+	},
+	onReachBottom() {
+		console.log('触底了！')
+		if (this.status === 'loading') return
+		if (this.total > this.commentList.length) {
+			this.status = 'loading'
+			this.pageNum++
 			this.getCommentList()
+		}
+	},
+	onLoad() {
+		this.id = uni.getStorageSync('user').id
+		this.getCommentList()
+	},
+	methods: {
+		getCommentList() {
+			request({
+				url: 'music/comment/mine',
+				get: 'GET',
+				data: {
+					pageNum: this.pageNum,
+					pageSize: this.pageSize,
+					userId: this.id
+				}
+			}).then(res => {
+				console.log(res);
+				this.commentList.push(...res.data.list)
+				this.total = res.data.count
+				if (this.total >= this.pageNum * this.pageSize) {
+					this.status = 'more'
+				} else {
+					this.status = 'noMore'
+				}
+			})
 		},
-		methods: {
-			getCommentList() {
-				request({
-					url: 'music/comment/mine',
-					get: 'GET',
-					data: {
-						pageNum: this.pageNum,
-						pageSize: this.pageSize,
-						userId: this.id
-					}
-				}).then(res => {
-					console.log(res);
-					this.commentList.push(...res.data.list)
-					this.total = res.data.count
-					if (this.total >= this.pageNum * this.pageSize) {
-						this.status = 'more'
-					} else {
-						this.status = 'noMore'
-					}
-				})
-			},
-			toBack() {
-				uni.navigateBack()
-			}
+		toBack() {
+			uni.navigateBack()
 		}
 	}
+}
 </script>
 
 <style lang="scss">
-	.comment-container {
-		min-height: 100vh;
-		background: #f8f8f8;
-		padding-bottom: 100upx;
+.comment-container {
+	min-height: 100vh;
+	background: #f8f8f8;
+	padding-bottom: 100upx;
 
-		::v-deep .uni-card {
-			margin: 20upx 0;
-			border-radius: 16upx;
-			box-shadow: 0 4upx 16upx rgba(0, 0, 0, 0.05);
-			border: none;
-			overflow: hidden;
-			transition: all 0.3s ease;
+	::v-deep .uni-card {
+		margin: 20upx 0;
+		border-radius: 16upx;
+		box-shadow: 0 4upx 16upx rgba(0, 0, 0, 0.05);
+		border: none;
+		overflow: hidden;
+		transition: all 0.3s ease;
 
-			&:active {
-				transform: translateY(2upx);
-				box-shadow: 0 2upx 8upx rgba(0, 0, 0, 0.05);
-			}
+		&:active {
+			transform: translateY(2upx);
+			box-shadow: 0 2upx 8upx rgba(0, 0, 0, 0.05);
+		}
 
-			.uni-card__header {
-				padding: 24upx;
-				border-bottom: 2upx solid #f5f5f5;
+		.uni-card__header {
+			padding: 24upx;
+			border-bottom: 2upx solid #f5f5f5;
 
-				.uni-card__header-box {
-					.uni-card__header-content {
-						font-size: 28upx;
-						color: #333;
-						font-weight: 600;
-					}
-
-					.uni-card__header-extra-text {
-						background: #2979ff;
-						color: #fff;
-						font-size: 24upx;
-						padding: 4upx 16upx;
-						border-radius: 20upx;
-					}
-				}
-			}
-
-			.uni-card__content {
-				padding: 24upx;
-
-				.uni-body {
+			.uni-card__header-box {
+				.uni-card__header-content {
 					font-size: 28upx;
-					color: #666;
-					line-height: 1.6;
+					color: #333;
+					font-weight: 600;
+				}
+
+				.uni-card__header-extra-text {
+					background: #2979ff;
+					color: #fff;
+					font-size: 24upx;
+					padding: 4upx 16upx;
+					border-radius: 20upx;
 				}
 			}
 		}
-	}
 
-	::v-deep .uni-load-more {
-		margin: 40upx 0;
+		.uni-card__content {
+			padding: 24upx;
 
-		.uni-load-more__text {
-			font-size: 26upx;
-			color: #999;
+			.uni-body {
+				font-size: 28upx;
+				color: #666;
+				line-height: 1.6;
+			}
 		}
 	}
+}
+
+::v-deep .uni-load-more {
+	margin: 40upx 0;
+
+	.uni-load-more__text {
+		font-size: 26upx;
+		color: #999;
+	}
+}
 </style>
