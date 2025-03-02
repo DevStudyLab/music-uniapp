@@ -11,7 +11,11 @@
 				</swiper-item>
 			</swiper>
 
-			<uni-section title="歌单列表" class="section-header"></uni-section>
+			<view class="custom-section">
+				<view class="section-content">
+					<text class="section-title">歌单列表</text>
+				</view>
+			</view>
 			<div class="menu-scroll-container">
 				<div v-for="(item, index) in menuList" :key="index" class="menu-item" @click="toMenu(item.id)">
 					<img :src="item.image" class="menu-image" alt="Menu Item Image" />
@@ -21,7 +25,11 @@
 				</div>
 			</div>
 
-			<uni-section title="热门歌曲" class="section-header"></uni-section>
+			<view class="custom-section">
+				<view class="section-content">
+					<text class="section-title">热门歌曲</text>
+				</view>
+			</view>
 			<view class="hotSongList">
 				<view class="item" v-for="(item, index) in hotSongList" :key="index" @click="setMusic(index)">
 					<image class="img" src="../../static/player.jpeg"></image>
@@ -140,23 +148,6 @@
 </script>
 
 <style lang="scss">
-	// .page-container {
-	// 	background: linear-gradient(to bottom, #f9f9f9, #ffffff);
-	// 	min-height: 100vh;
-	// 	position: relative;
-	// }
-
-	// 音乐背景组件样式
-	// /deep/ .music-background-container {
-	// 	position: absolute;
-	// 	top: 0;
-	// 	left: 0;
-	// 	width: 100%;
-	// 	height: 100%;
-	// 	z-index: 0;
-	// 	pointer-events: none;
-	// }
-
 	.main-content,
 	.search-results {
 		padding-top: 10upx;
@@ -166,7 +157,7 @@
 		margin: 0 20upx;
 
 		::v-deep .uni-searchbar {
-			background-color: rgba(255, 255, 255, 0.8) !important;
+			background-color: rgba(255, 255, 255, 0.2) !important;
 			border-radius: 16upx;
 			box-shadow: 0 2upx 8upx rgba(0, 0, 0, 0.05);
 		}
@@ -190,6 +181,20 @@
 			margin-right: 20upx;
 			position: relative;
 			transition: all 0.3s ease;
+			overflow: hidden;
+
+			&::before {
+				content: '';
+				position: absolute;
+				top: -50%;
+				left: -50%;
+				width: 200%;
+				height: 200%;
+				background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+				transform: rotate(45deg);
+				animation: shine 3s infinite;
+				z-index: 1;
+			}
 
 			&:active {
 				transform: scale(0.95);
@@ -278,22 +283,48 @@
 
 	.hotSongList {
 		padding: 20upx;
-		opacity: 0.9;
+
+		@keyframes shine {
+			0% {
+				transform: translateX(-100%) rotate(45deg);
+			}
+
+			100% {
+				transform: translateX(100%) rotate(45deg);
+			}
+		}
 
 		.item {
 			display: flex;
 			align-items: center;
 			padding: 24upx;
 			margin-bottom: 16upx;
-			background: #fff;
+			background: rgba(255, 255, 255, 0.9);
 			border-radius: 16upx;
 			transition: all 0.3s ease;
 			box-shadow: $music-shadow-card;
 			border-left: 4upx solid $uni-color-primary;
+			position: relative;
+			overflow: hidden;
+			backdrop-filter: blur(10px);
+			-webkit-backdrop-filter: blur(10px);
+
+			&::before {
+				content: '';
+				position: absolute;
+				top: -50%;
+				left: -50%;
+				width: 200%;
+				height: 200%;
+				background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+				transform: rotate(45deg);
+				animation: shine 3s infinite;
+				z-index: 1;
+			}
 
 			&:active {
 				transform: scale(0.98);
-				background: $uni-bg-color-hover;
+				background: rgba(255, 255, 255, 0.95);
 			}
 
 			.img {
@@ -332,6 +363,7 @@
 					overflow: hidden;
 					text-overflow: ellipsis;
 					white-space: nowrap;
+					text-shadow: 0 1upx 2upx rgba(0, 0, 0, 0.1);
 
 					strong {
 						font-weight: 600;
@@ -344,12 +376,8 @@
 					overflow: hidden;
 					text-overflow: ellipsis;
 					white-space: nowrap;
-					margin: 0;
+					text-shadow: 0 1upx 1upx rgba(0, 0, 0, 0.05);
 				}
-			}
-
-			&:not(:last-child) {
-				margin-bottom: 16upx;
 			}
 		}
 	}
@@ -394,73 +422,66 @@
 		}
 	}
 
-	::v-deep .uni-section {
-		padding: 0 15upx;
-		background-color: transparent;
+	.custom-section {
+		padding: 20upx 30upx;
+		margin: 20upx;
+		position: relative;
+		background: linear-gradient(135deg, rgba(41, 121, 255, 0.25), rgba(41, 121, 255, 0.15));
+		border-radius: 16upx;
+		backdrop-filter: blur(10px);
+		-webkit-backdrop-filter: blur(10px);
+		box-shadow: 0 4upx 12upx rgba(0, 0, 0, 0.15);
+		border: 1px solid rgba(255, 255, 255, 0.2);
+		z-index: 1;
 
-		.uni-section-header {
+		.section-content {
 			position: relative;
 			display: flex;
 			align-items: center;
-			margin-bottom: 12upx;
+			padding-left: 24upx;
 
-			.uni-section__content-title {
-				font-size: 32upx;
-				font-weight: 700;
-				color: #333;
-				position: relative;
-				padding-left: 20upx;
-				letter-spacing: 1upx;
+			&::before {
+				content: '';
+				position: absolute;
+				left: 0;
+				top: 50%;
+				transform: translateY(-50%);
+				width: 8upx;
+				height: 32upx;
+				border-radius: 4upx;
+				background: linear-gradient(to bottom, #2979ff, #1c6fee);
+				box-shadow: 0 2upx 6upx rgba(41, 121, 255, 0.3);
+			}
 
-				&::before {
-					content: '';
-					position: absolute;
-					left: 0;
-					top: 50%;
-					transform: translateY(-50%);
-					width: 6upx;
-					height: 28upx;
-					border-radius: 3upx;
-					background: linear-gradient(to bottom, #1c6fee, #4785ee);
-				}
+			.section-title {
+				font-size: 36upx;
+				font-weight: 600;
+				color: #ffffff;
+				letter-spacing: 2upx;
+				text-shadow: 2upx 2upx 4upx rgba(0, 0, 0, 0.3);
 			}
 
 			&::after {
 				content: '';
 				position: absolute;
-				left: 20upx;
-				bottom: -8upx;
-				width: 50upx;
-				height: 3upx;
+				left: 30upx;
+				bottom: -2upx;
+				width: 60upx;
+				height: 4upx;
 				background: linear-gradient(to right, #2979ff, transparent);
 				border-radius: 2upx;
+				transition: width 0.3s ease;
+			}
+
+			&:hover::after {
+				width: 120upx;
 			}
 		}
-
-		.uni-section-content {
-			margin-top: 12upx;
-		}
 	}
 
-	::v-deep .uni-section+.menu-scroll-container {
-		margin-top: 12upx;
-	}
-
-	::v-deep .uni-section+.hotSongList {
-		margin-top: 12upx;
-	}
-
-	::v-deep .uni-section:hover {
-		.uni-section__content-title {
-			&::before {
-				background: linear-gradient(to bottom, #1c6fee, #4785ee);
-			}
-		}
-
-		.uni-section-header::after {
-			width: 80upx;
-			transition: width 0.3s ease;
-		}
+	.custom-section+.menu-scroll-container,
+	.custom-section+.hotSongList {
+		margin-top: 20upx;
 	}
 
 	.bottom {
@@ -468,7 +489,6 @@
 		width: 100%;
 		position: fixed;
 		bottom: 100upx;
-
 		// #ifdef APP-PLUS
 		bottom: 0;
 		// #endif
