@@ -1,5 +1,6 @@
 <template>
 	<view>
+		<music-background style="z-index: 0;" type="waves" containerId="mycomment-background" />
 		<uni-nav-bar left-icon="left" leftText="返回" title="个人信息修改" background-color="#2979ff" color="#fff"
 			@clickLeft="toBack" status-bar :border="false" />
 

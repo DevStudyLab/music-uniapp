@@ -6,6 +6,9 @@ import {
 
 Vue.prototype.$myGlobalFunction = myGlobalFunction;
 
+import MusicBackground from './components/music-background/music-background.vue'
+Vue.component('music-background', MusicBackground);
+
 // #ifndef VUE3
 import Vue from 'vue'
 import './uni.promisify.adaptor'

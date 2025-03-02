@@ -136,13 +136,19 @@
 		align-items: center;
 		background-color: rgba(255, 255, 255, 0.98);
 		backdrop-filter: blur(10upx);
+		box-shadow: 0 -2upx 10upx rgba(0, 0, 0, 0.05);
+		transition: all 0.3s ease;
+
+		&:active {
+			background-color: rgba(245, 245, 245, 0.98);
+		}
 
 		.playerImg {
 			width: 80upx;
 			height: 80upx;
 			margin: 10upx;
 			border-radius: 50%;
-			box-shadow: 0 4upx 12upx rgba(0, 0, 0, 0.1);
+			box-shadow: $music-shadow-card;
 			transition: all 0.3s ease;
 
 			&:active {
@@ -159,7 +165,7 @@
 
 			p {
 				font-size: 28upx;
-				color: #333;
+				color: $uni-text-color;
 				margin: 0;
 				padding: 0;
 				line-height: 1.4;
@@ -172,7 +178,7 @@
 		.icon-kaishibofang,
 		.icon-zantingbofang {
 			font-size: 48upx;
-			color: #2979ff;
+			color: $uni-color-primary;
 			padding: 10upx 20upx;
 			transition: all 0.3s ease;
 			margin-left: auto;
@@ -181,7 +187,7 @@
 
 			&:active {
 				transform: scale(0.9);
-				color: #1c6fee;
+				color: darken($uni-color-primary, 10%);
 			}
 		}
 	}
@@ -202,9 +208,10 @@
 					height: 300upx;
 					width: 300upx;
 					border-radius: 50%;
-					box-shadow: 0 8upx 24upx rgba(0, 0, 0, 0.15);
+					box-shadow: $music-shadow-card;
 					transition: all 0.5s ease;
 					animation: none;
+					border: 8upx solid rgba(255, 255, 255, 0.8);
 
 					&.rotating {
 						animation: albumRotate 20s linear infinite;
@@ -230,12 +237,12 @@
 				text {
 					margin-top: 20upx;
 					font-size: 28upx;
-					color: #666;
+					color: $uni-text-color-grey;
 
 					&.name {
 						margin-top: 30upx;
 						font-size: 36upx;
-						color: #333;
+						color: $uni-text-color;
 						font-weight: 600;
 					}
 				}
@@ -245,6 +252,9 @@
 					padding: 20upx;
 					text-align: center;
 					height: 300upx;
+					background-color: rgba(249, 249, 249, 0.5);
+					border-radius: 16upx;
+					width: 90%;
 
 					// #ifdef APP-PLUS
 					height: 500upx;
@@ -252,7 +262,7 @@
 
 					view {
 						font-size: 28upx;
-						color: #999;
+						color: $uni-text-color-grey;
 						line-height: 2;
 					}
 				}
@@ -265,7 +275,7 @@
 
 					.time {
 						font-size: 24upx;
-						color: #999;
+						color: $uni-text-color-grey;
 						width: 80upx;
 						text-align: center;
 					}
@@ -283,7 +293,7 @@
 							left: 0;
 							top: 0;
 							height: 100%;
-							background: linear-gradient(to right, #2979ff, #5e96ff);
+							background: $music-gradient-primary;
 							border-radius: 2upx;
 							transition: width 0.1s linear;
 

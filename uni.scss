@@ -17,26 +17,31 @@
 /* 颜色变量 */
 
 /* 行为相关颜色 */
-$uni-color-primary: #007aff;
+$uni-color-primary: #2979ff; /* 更新为与导航栏一致的蓝色 */
 $uni-color-success: #4cd964;
 $uni-color-warning: #f0ad4e;
 $uni-color-error: #dd524d;
 
 /* 文字基本颜色 */
-$uni-text-color:#333;//基本色
-$uni-text-color-inverse:#fff;//反色
-$uni-text-color-grey:#999;//辅助灰色，如加载更多的提示信息
-$uni-text-color-placeholder: #808080;
+$uni-text-color:#333333;//基本色
+$uni-text-color-inverse:#ffffff;//反色
+$uni-text-color-grey:#888888;//辅助灰色，使用更柔和的灰色
+$uni-text-color-placeholder: #a0a0a0;
 $uni-text-color-disable:#c0c0c0;
 
 /* 背景颜色 */
 $uni-bg-color:#ffffff;
-$uni-bg-color-grey:#f8f8f8;
-$uni-bg-color-hover:#f1f1f1;//点击状态颜色
-$uni-bg-color-mask:rgba(0, 0, 0, 0.4);//遮罩颜色
+$uni-bg-color-grey:#f9f9f9; /* 更柔和的灰色背景 */
+$uni-bg-color-hover:#f0f0f0;//点击状态颜色
+$uni-bg-color-mask:rgba(0, 0, 0, 0.5);//遮罩颜色，增加透明度
 
 /* 边框颜色 */
-$uni-border-color:#c8c7cc;
+$uni-border-color:#e0e0e0; /* 更柔和的边框颜色 */
+
+/* 音乐应用特定颜色 */
+$music-gradient-primary: linear-gradient(135deg, #2979ff, #5b9df9); /* 主色调渐变 */
+$music-shadow-card: 0 4px 12px rgba(0, 0, 0, 0.08); /* 卡片阴影 */
+$music-shadow-button: 0 2px 8px rgba(41, 121, 255, 0.25); /* 按钮阴影 */
 
 /* 尺寸变量 */
 

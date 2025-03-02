@@ -1,5 +1,6 @@
 <template>
 	<view class="reply-container">
+		<music-background style="z-index: 0;" type="waves" containerId="replyme-background" />
 		<uni-nav-bar left-icon="left" leftText="返回" title="我收到的回复" background-color="#2979ff" color="#fff"
 			@clickLeft="toBack" fixed status-bar :border="false" />
 		<view v-for="(item,index) in commentList" :key="index">
