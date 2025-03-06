@@ -13,9 +13,9 @@
 
 		<uni-popup class="player" ref="player" backgroundColor="#fff">
 			<view class="popup-content">
-				<uni-nav-bar v-if="isComment === false" :title="name" dark fixed background-color="#2979ff" status-bar
+				<uni-nav-bar v-if="isComment === false" :title="name" dark fixed background-color="#3883FF" status-bar
 					left-icon="bottom" @clickLeft="back" right-icon='chat' @clickRight="isComment = true" />
-				<uni-nav-bar v-else :title="name" dark fixed background-color="#2979ff" status-bar left-icon="bottom"
+				<uni-nav-bar v-else :title="name" dark fixed background-color="#3883FF" status-bar left-icon="bottom"
 					@clickLeft="back" right-icon='undo' @clickRight="isComment = false" />
 				<view v-if="isComment === false">
 					<view class="topInfo">

@@ -1,7 +1,7 @@
 <template>
 	<view class="page-container">
 		<music-background type="waves" containerId="music-background" />
-		<uni-nav-bar title="音渊" background-color="#2979ff" color="#fff" status-bar :border="false" fixed />
+		<uni-nav-bar title="音渊" background-color="#3883FF" color="#fff" status-bar :border="false" fixed />
 		<uni-search-bar v-model='searchVal' :focus="false" placeholder="输入想听的歌名" class="custom-search" />
 
 		<view v-if="!searchVal" class="main-content">

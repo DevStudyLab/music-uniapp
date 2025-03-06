@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<uni-nav-bar title="我的" background-color="#2979ff" color="#fff" fixed status-bar :border="false" />
+		<uni-nav-bar title="我的" background-color="#3883FF" color="#fff" fixed status-bar :border="false" />
 
 		<view class="top">
 			<image src="../../static/mine-bg.png" class="bg"></image>
@@ -27,7 +27,12 @@
 			</view>
 		</view>
 
-		<uni-section title="我创建的歌单"></uni-section>
+		<view class="custom-section">
+			<view class="section-content">
+				<text class="section-title">我创建的歌单</text>
+			</view>
+		</view>
+
 		<view v-for="(item,index) in menuList" :key="index" @click="toMenu(item.id)">
 			<view class="songLine">
 				<image :src="item.image" class="img"></image>
@@ -281,5 +286,62 @@
 	.popup {
 		display: fixed;
 		z-index: 999;
+	}
+
+	.custom-section {
+		padding: 20upx 30upx;
+		margin: 20upx;
+		position: relative;
+		background: linear-gradient(135deg, rgba(41, 121, 255, 0.25), rgba(41, 121, 255, 0.15));
+		border-radius: 16upx;
+		backdrop-filter: blur(10px);
+		-webkit-backdrop-filter: blur(10px);
+		box-shadow: 0 4upx 12upx rgba(0, 0, 0, 0.15);
+		border: 1px solid rgba(255, 255, 255, 0.2);
+		z-index: 1;
+
+		.section-content {
+			position: relative;
+			display: flex;
+			align-items: center;
+			padding-left: 24upx;
+
+			&::before {
+				content: '';
+				position: absolute;
+				left: 0;
+				top: 50%;
+				transform: translateY(-50%);
+				width: 8upx;
+				height: 32upx;
+				border-radius: 4upx;
+				background: linear-gradient(to bottom, #2979ff, #1c6fee);
+				box-shadow: 0 2upx 6upx rgba(41, 121, 255, 0.3);
+			}
+
+			.section-title {
+				font-size: 36upx;
+				font-weight: 600;
+				color: #ffffff;
+				letter-spacing: 2upx;
+				text-shadow: 2upx 2upx 4upx rgba(0, 0, 0, 0.3);
+			}
+
+			&::after {
+				content: '';
+				position: absolute;
+				left: 30upx;
+				bottom: -2upx;
+				width: 60upx;
+				height: 4upx;
+				background: linear-gradient(to right, #2979ff, transparent);
+				border-radius: 2upx;
+				transition: width 0.3s ease;
+			}
+
+			&:hover::after {
+				width: 120upx;
+			}
+		}
 	}
 </style>

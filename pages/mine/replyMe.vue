@@ -1,7 +1,7 @@
 <template>
 	<view class="reply-container">
 		<music-background style="z-index: 0;" type="waves" containerId="replyme-background" />
-		<uni-nav-bar left-icon="left" leftText="返回" title="我收到的回复" background-color="#2979ff" color="#fff"
+		<uni-nav-bar left-icon="left" leftText="返回" title="我收到的回复" background-color="#3883FF" color="#fff"
 			@clickLeft="toBack" fixed status-bar :border="false" />
 		<view v-for="(item,index) in commentList" :key="index">
 			<uni-card v-if="item.childComments" :title="'评论 ' + (index + 1)" extra="回复">
