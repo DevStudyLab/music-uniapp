@@ -83,7 +83,7 @@
 
 1. 克隆项目
 ```bash
-git clone https://gitee.com/weng23/music-uniapp.git
+git clone https://gitcode.com/weng235/music-uniapp.git
 ```
 
 2. 安装依赖
